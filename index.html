@@ -268,6 +268,33 @@ tr.active td { background: var(--orange-soft); color: var(--text); font-weight: 
 .plat-btn.on[data-p="tiktok"] .plat-ic { background: #fff; color: #111; }
 @media (max-width: 560px) { .plat-btn { flex-direction: column; gap: 6px; font-size: 13px; padding: 12px 6px; } }
 .plat-note { font-size: 11px; color: var(--text3); line-height: 1.5; margin: -4px 0 12px; }
+/* MENTORIA */
+.mentoria {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: center;
+  background: linear-gradient(135deg, #1C1D22 0%, #2A1A14 100%); color: #fff; border-radius: 22px; padding: 28px 30px;
+  margin-bottom: 20px; box-shadow: 0 10px 30px rgba(16,24,40,.18);
+}
+.mentoria::before {
+  content: ''; position: absolute; right: -80px; top: -80px; width: 320px; height: 320px; pointer-events: none;
+  background: radial-gradient(circle, rgba(238,77,45,.45) 0%, transparent 70%);
+}
+.mentoria > * { position: relative; }
+.ment-tag { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; background: rgba(238,77,45,.2); color: #FF8A65; border: 1px solid rgba(238,77,45,.4); margin-bottom: 12px; }
+.mentoria h3 { font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.mentoria h3 span { color: #FF7A45; }
+.mentoria p.ment-sub { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.55; margin-bottom: 18px; }
+.ment-cta {
+  display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 14px; text-decoration: none;
+  background: var(--orange); color: #fff; font-size: 14px; font-weight: 800; box-shadow: 0 6px 18px rgba(238,77,45,.4); transition: transform .15s;
+}
+.ment-cta:hover { transform: translateY(-2px); }
+.ment-list { list-style: none; display: grid; gap: 10px; }
+.ment-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.85); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 10px 12px; }
+.ment-list li b { color: #fff; }
+.ment-list .ck { width: 20px; height: 20px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+@media (max-width: 760px) { .mentoria { grid-template-columns: 1fr; padding: 24px 20px; } }
+.alert.ment { background: #FFF4EF; border: 1px solid rgba(238,77,45,.3); }
+.alert.ment a { color: var(--orange); font-weight: 700; }
 tr.clickable { cursor: pointer; }
 tr.clickable:hover td { background: var(--bg3); }
 tr.best td { background: var(--green-soft); }
@@ -424,6 +451,7 @@ tr.best td { background: var(--green-soft); }
 
       <div class="alert yellow" id="alert-faixa"><span class="ic">💡</span><span id="alert-faixa-txt"></span></div>
       <div class="alert red" id="alert-neg"><span class="ic">⛔</span><span id="alert-neg-txt"></span></div>
+      <div class="alert ment" id="alert-ment"><span class="ic">🤝</span><span>Margem apertada? Na mentoria eu analiso seus custos e anúncios com você para encontrar onde dá pra ganhar mais. <a href="https://mentoria.obrunoferracini.com.br" target="_blank" rel="noopener">Agendar mentoria →</a></span></div>
 
       <div class="section-title">Detalhamento por venda</div>
       <div class="brow"><span class="bl">📦 Preço de venda</span><span class="bv" id="bd-preco">—</span></div>
@@ -477,6 +505,22 @@ tr.best td { background: var(--green-soft); }
       </table>
     </div>
     <p class="table-note">Usa os mesmos custos, imposto e outros custos, com as opções escolhidas em cada plataforma. Clique numa linha para abrir aquela calculadora.</p>
+  </div>
+
+  <!-- MENTORIA -->
+  <div class="mentoria">
+    <div>
+      <span class="ment-tag">🎯 Mentoria individual</span>
+      <h3>Já sabe o preço certo.<br><span>Agora vamos fazer vender.</span></h3>
+      <p class="ment-sub">Precificar é o primeiro passo. Numa mentoria comigo, eu olho a sua loja de perto e te mostro exatamente o que ajustar para vender mais, com lucro.</p>
+      <a class="ment-cta" href="https://mentoria.obrunoferracini.com.br" target="_blank" rel="noopener">Agendar minha mentoria →</a>
+    </div>
+    <ul class="ment-list">
+      <li><span class="ck">✓</span><span><b>1 a 3 horas exclusivas</b> focadas no seu negócio</span></li>
+      <li><span class="ck">✓</span><span><b>Análise completa</b> da loja, dos anúncios e da estratégia de ADS</span></li>
+      <li><span class="ck">✓</span><span><b>Plano de ação</b> personalizado com o próximo passo definido</span></li>
+      <li><span class="ck">✓</span><span><b>Suporte vitalício</b> pelo WhatsApp depois da mentoria</span></li>
+    </ul>
   </div>
 
   <!-- SIMULAÇÃO -->
@@ -790,6 +834,8 @@ function calc() {
   const neg = temPreco && r.lucro < 0;
   $('alert-neg').classList.toggle('show', neg);
   if (neg) $('alert-neg-txt').innerHTML = '<b>Prejuízo de ' + fmt(-r.lucro) + ' por venda.</b> Esse preço não cobre as taxas e os custos.';
+  // Convite discreto para a mentoria quando a margem fica abaixo de 15%
+  $('alert-ment').classList.toggle('show', temPreco && (c.cp + c.ce) > 0 && r.margem < 15);
 
   // ROAS (mesma regra: breakeven = preço ÷ lucro; ideal = breakeven × 4)
   $('roas-title').textContent = '📢 Análise de ROAS para anúncios (' + P.ads + ')';
